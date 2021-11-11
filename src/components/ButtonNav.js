@@ -1,7 +1,14 @@
 import React, { Component } from "react";
+import Screen from "./Screen";
 import "../styles/buttonnav.css";
 import ZingTouch from "zingtouch";
 export default class ButtonNav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuItem: "",
+    };
+  }
   componentDidMount() {
     let element = document.getElementsByClassName("nav-options")[0];
     let activeRegion = new ZingTouch.Region(element);
@@ -29,37 +36,47 @@ export default class ButtonNav extends Component {
       }
     });
   }
+  optionSelected = () => {
+    let menuOption =
+      document.getElementsByClassName("highlight")[0].textContent;
+    this.setState({
+      menuItem: menuOption,
+    });
+  };
   render() {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 18,
-        }}
-      >
-        <div className="outer-div">
-          <div className="nav-options">
-            <div id="fbm">
-              <p className="menu">MENU</p>
-              <p className="forward">
-                <i className="fas fa-fast-forward"></i>
-              </p>
-              <p className="backward">
-                <i className="fas fa-fast-backward"></i>
-              </p>
-            </div>
-            <p className="play-pause">
-              <div style={{ display: "flex" }}>
-                <i className="fas fa-play"></i>
-                <i className="fas fa-pause" style={{ paddingLeft: 4 }}></i>
+      <>
+        <Screen menuOptionSelected={this.state} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 18,
+          }}
+        >
+          <div className="outer-div">
+            <div className="nav-options">
+              <div id="fbm">
+                <p className="menu">MENU</p>
+                <p className="forward">
+                  <i className="fas fa-fast-forward"></i>
+                </p>
+                <p className="backward">
+                  <i className="fas fa-fast-backward"></i>
+                </p>
               </div>
-            </p>
+              <p className="play-pause">
+                <div style={{ display: "flex" }}>
+                  <i className="fas fa-play"></i>
+                  <i className="fas fa-pause" style={{ paddingLeft: 4 }}></i>
+                </div>
+              </p>
+              <div id="inner-div" onClick={this.optionSelected}></div>
+            </div>
           </div>
-          <div className="inner-div"></div>
         </div>
-      </div>
+      </>
     );
   }
 }

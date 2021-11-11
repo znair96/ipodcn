@@ -6,7 +6,7 @@
   border-radius: 50%;
   background-color: white;
 }
-.inner-div {
+#inner-div {
   width: 50%;
   height: 50%;
   /*   border:2px solid yellow; */
