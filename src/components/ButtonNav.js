@@ -6,7 +6,7 @@ export default class ButtonNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuItem: "",
+      menuItem: "menu",
     };
   }
   componentDidMount() {
@@ -18,6 +18,7 @@ export default class ButtonNav extends Component {
       numInputs: 1,
     });
     //Binding the event in the region
+
     activeRegion.bind(element, customPan, (event) => {
       if (document.getElementById("cover-flow").className === "highlight") {
         document.getElementById("cover-flow").classList.remove("highlight");
@@ -43,6 +44,11 @@ export default class ButtonNav extends Component {
       menuItem: menuOption,
     });
   };
+  menuSelect = () => {
+    this.setState({
+      menuItem: "menu",
+    });
+  };
   render() {
     return (
       <>
@@ -58,7 +64,9 @@ export default class ButtonNav extends Component {
           <div className="outer-div">
             <div className="nav-options">
               <div id="fbm">
-                <p className="menu">MENU</p>
+                <p className="menu" onClick={this.menuSelect}>
+                  MENU
+                </p>
                 <p className="forward">
                   <i className="fas fa-fast-forward"></i>
                 </p>
