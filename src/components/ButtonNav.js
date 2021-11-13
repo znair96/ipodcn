@@ -6,7 +6,7 @@ export default class ButtonNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuItem: "menu",
+      menuItem: "",
     };
   }
   componentDidMount() {
@@ -14,7 +14,7 @@ export default class ButtonNav extends Component {
     let activeRegion = new ZingTouch.Region(element);
     //Customised Pan event
     let customPan = new ZingTouch.Pan({
-      threshold: 15,
+      threshold: 20,
       numInputs: 1,
     });
     //Binding the event in the region
@@ -37,6 +37,7 @@ export default class ButtonNav extends Component {
       }
     });
   }
+  //Inner div selected
   optionSelected = () => {
     let menuOption =
       document.getElementsByClassName("highlight")[0].textContent;
@@ -44,15 +45,16 @@ export default class ButtonNav extends Component {
       menuItem: menuOption,
     });
   };
+  //Event triggered when menu is clicked
   menuSelect = () => {
     this.setState({
-      menuItem: "menu",
+      menuItem: "",
     });
   };
   render() {
     return (
       <>
-        <Screen menuOptionSelected={this.state} />
+        <Screen menuOptionSelected={this.state.menuItem} />
         <div
           style={{
             display: "flex",

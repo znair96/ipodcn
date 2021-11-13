@@ -7,14 +7,16 @@ import Games from "./Games";
 import Settings from "./Settings";
 export default class Screen extends Component {
   render() {
-    let menu = this.props.menuOptionSelected.menuItem;
-    let jsxVal = <Menu />;
+    let menu = this.props.menuOptionSelected;
+    menu = menu.trim();
+    let jsxVal;
     let classValue = "screen";
     console.log(menu);
     if (menu !== "") {
       classValue = "white-background";
     }
     if (menu === "Cover Flow") {
+      console.log("I am in Cover flow");
       jsxVal = <CoverFlow />;
     } else if (menu === "Music") {
       jsxVal = <Music />;
@@ -22,6 +24,8 @@ export default class Screen extends Component {
       jsxVal = <Games />;
     } else if (menu === "Settings") {
       jsxVal = <Settings />;
+    } else {
+      jsxVal = <Menu />;
     }
     return <div className={classValue}>{jsxVal}</div>;
   }
