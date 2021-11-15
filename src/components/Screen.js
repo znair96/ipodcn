@@ -11,15 +11,14 @@ export default class Screen extends Component {
     menu = menu.trim();
     let jsxVal;
     let classValue = "screen";
-    console.log(menu);
     if (menu !== "") {
       classValue = "white-background";
     }
     if (menu === "Cover Flow") {
-      console.log("I am in Cover flow");
       jsxVal = <CoverFlow />;
     } else if (menu === "Music") {
       jsxVal = <Music />;
+      classValue = "screen";
     } else if (menu === "Games") {
       jsxVal = <Games />;
     } else if (menu === "Settings") {
