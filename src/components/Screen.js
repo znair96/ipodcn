@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../styles/screen.css";
 import Menu from "./Menu";
 import CoverFlow from "./CoverFlow";
-import Music from "./Music";
+import MusicPlayer from "./MusicPlayer";
 import Games from "./Games";
 import Settings from "./Settings";
 export default class Screen extends Component {
@@ -17,8 +17,8 @@ export default class Screen extends Component {
     if (menu === "Cover Flow") {
       jsxVal = <CoverFlow />;
     } else if (menu === "Music") {
-      jsxVal = <Music />;
-      classValue = "screen";
+      jsxVal = <MusicPlayer />;
+      // classValue = "screen";
     } else if (menu === "Games") {
       jsxVal = <Games />;
     } else if (menu === "Settings") {

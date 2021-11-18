@@ -51,6 +51,27 @@ export default class ButtonNav extends Component {
       menuItem: "",
     });
   };
+  changeToPlayPause() {
+    //document.getElementsByClassName("play")[0].getElementsByTagName("i")[0];
+    const play = document.getElementsByClassName("play")[0];
+    const pause = document.getElementsByClassName("pause")[0];
+    if (play) {
+      // play.innerHTML = `<i class="fal fa-pause"></i>`;
+      play.getElementsByTagName("i")[0].classList.remove("fal");
+      play.getElementsByTagName("i")[0].classList.remove("fa-play");
+      play.getElementsByTagName("i")[0].classList.add("fal");
+      play.getElementsByTagName("i")[0].classList.add("fa-pause");
+      play.classList.remove("play");
+      play.classList.add("pause");
+    } else {
+      pause.getElementsByTagName("i")[0].classList.remove("fal");
+      pause.getElementsByTagName("i")[0].classList.remove("fa-pause");
+      pause.getElementsByTagName("i")[0].classList.add("fal");
+      pause.getElementsByTagName("i")[0].classList.add("fa-play");
+      pause.classList.remove("pause");
+      pause.classList.add("play");
+    }
+  }
   render() {
     return (
       <>
@@ -70,13 +91,13 @@ export default class ButtonNav extends Component {
                   MENU
                 </p>
                 <p className="forward">
-                  <i className="fas fa-fast-forward"></i>
-                </p>
-                <p className="backward">
                   <i className="fas fa-fast-backward"></i>
                 </p>
+                <p className="backward">
+                  <i className="fas fa-fast-forward"></i>
+                </p>
               </div>
-              <p className="play-pause">
+              <p className="play-pause" onClickCapture={this.changeToPlayPause}>
                 <div style={{ display: "flex" }}>
                   <i className="fas fa-play"></i>
                   <i className="fas fa-pause" style={{ paddingLeft: 4 }}></i>
