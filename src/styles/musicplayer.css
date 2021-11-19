@@ -39,11 +39,24 @@
 .music-controls {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 36px;
   font-size: 20px;
 }
 .play,
 .pause {
   margin-right: 32px;
   margin-left: 32px;
+}
+.music-duration {
+  position: relative;
+}
+.start {
+  position: absolute;
+  left: 18px;
+  top: 8px;
+}
+.end {
+  position: absolute;
+  right: 18px;
+  top: 8px;
 }

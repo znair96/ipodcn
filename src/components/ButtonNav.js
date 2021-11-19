@@ -2,13 +2,18 @@ import React, { Component } from "react";
 import Screen from "./Screen";
 import "../styles/buttonnav.css";
 import ZingTouch from "zingtouch";
+import song from "../audio/Malare.mp3";
 export default class ButtonNav extends Component {
   constructor(props) {
     super(props);
+    this.audio = new Audio(song);
     this.state = {
       menuItem: "",
+      timer: 0,
     };
+    // console.log(this.audio.duration);
   }
+
   componentDidMount() {
     let element = document.getElementsByClassName("nav-options")[0];
     let activeRegion = new ZingTouch.Region(element);
@@ -51,12 +56,26 @@ export default class ButtonNav extends Component {
       menuItem: "",
     });
   };
-  changeToPlayPause() {
-    //document.getElementsByClassName("play")[0].getElementsByTagName("i")[0];
+
+  changeToPlayPause = () => {
     const play = document.getElementsByClassName("play")[0];
     const pause = document.getElementsByClassName("pause")[0];
+    // let startMinutes = 0;
+    // let startSeconds = 0;
+    // const minutes = parseInt(totalDuration / 60);
+    // const seconds = totalDuration % 60;
+    // let endduration = "";
+    // if (seconds < 10) {
+    //   endduration = minutes + ":0" + seconds;
+    // } else {
+    //   endduration = minutes + ":" + seconds;
+    // }
+    // console.log(endduration);
+    // const totalDuration = parseInt(this.state.audio.duration);
+    // console.log(totalDuration);
+
     if (play) {
-      // play.innerHTML = `<i class="fal fa-pause"></i>`;
+      this.audio.play();
       play.getElementsByTagName("i")[0].classList.remove("fal");
       play.getElementsByTagName("i")[0].classList.remove("fa-play");
       play.getElementsByTagName("i")[0].classList.add("fal");
@@ -64,6 +83,7 @@ export default class ButtonNav extends Component {
       play.classList.remove("play");
       play.classList.add("pause");
     } else {
+      this.audio.pause();
       pause.getElementsByTagName("i")[0].classList.remove("fal");
       pause.getElementsByTagName("i")[0].classList.remove("fa-pause");
       pause.getElementsByTagName("i")[0].classList.add("fal");
@@ -71,11 +91,15 @@ export default class ButtonNav extends Component {
       pause.classList.remove("pause");
       pause.classList.add("play");
     }
-  }
+  };
   render() {
     return (
       <>
-        <Screen menuOptionSelected={this.state.menuItem} />
+        <Screen
+          menuOptionSelected={this.state.menuItem}
+          fullLength={parseInt(this.audio.duration)}
+          timer={this.state.timer}
+        />
         <div
           style={{
             display: "flex",
