@@ -30,7 +30,7 @@
   margin-top: 0;
 }
 .loader {
-  width: 88%;
+  width: 265px;
   height: 8px;
   background-color: gray;
   margin: auto;
@@ -59,4 +59,9 @@
   position: absolute;
   right: 18px;
   top: 8px;
+}
+.loader-progress {
+  height: inherit;
+  width: 0;
+  background-color: rgb(126, 195, 252);
 }

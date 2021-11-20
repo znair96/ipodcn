@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Screen from "./Screen";
 import "../styles/buttonnav.css";
 import ZingTouch from "zingtouch";
-import song from "../audio/Malare.mp3";
+import song from "../audio/Malare-S.P.-Balasubrahmanyam-S.-Janaki.m4a";
 export default class ButtonNav extends Component {
   constructor(props) {
     super(props);
@@ -73,7 +73,26 @@ export default class ButtonNav extends Component {
     // console.log(endduration);
     // const totalDuration = parseInt(this.state.audio.duration);
     // console.log(totalDuration);
-
+    let width = 0;
+    let timerCount = setInterval(() => {
+      if (this.audio.paused) {
+        clearInterval(timerCount);
+      } else {
+        if (this.state.timer === parseInt(this.audio.duration)) {
+          this.setState({
+            timer: 0,
+          });
+          clearInterval(timerCount);
+        } else {
+          this.setState({
+            timer: this.state.timer + 1,
+          });
+          width = width + 0.5;
+          document.getElementsByClassName("loader-progress")[0].style.width =
+            width + "%";
+        }
+      }
+    }, 1000);
     if (play) {
       this.audio.play();
       play.getElementsByTagName("i")[0].classList.remove("fal");
@@ -84,6 +103,7 @@ export default class ButtonNav extends Component {
       play.classList.add("pause");
     } else {
       this.audio.pause();
+
       pause.getElementsByTagName("i")[0].classList.remove("fal");
       pause.getElementsByTagName("i")[0].classList.remove("fa-pause");
       pause.getElementsByTagName("i")[0].classList.add("fal");

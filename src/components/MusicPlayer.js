@@ -6,10 +6,35 @@ export default function MusicPlayer(props) {
   const minutes = parseInt(props.fullLength / 60);
   let totalDuration = "";
   if (seconds < 10) {
-    totalDuration = minutes + ":0" + seconds;
+    totalDuration = "0" + minutes + ":0" + seconds;
   } else {
-    totalDuration = minutes + ":" + seconds;
+    totalDuration = "0" + minutes + ":" + seconds;
   }
+  let convertTimertoMinSec = () => {
+    let currentTimer = "";
+    let currentMinute = 0;
+    // let currentSecond = 0;
+    if (props.timer < 60) {
+      if (props.timer < 10) {
+        currentTimer = "00:0" + props.timer;
+      } else {
+        currentTimer = "00:" + props.timer;
+      }
+    } else {
+      currentMinute = parseInt(props.timer / 60);
+      if (props.timer % 60 === 0) {
+        currentTimer = "0" + currentMinute + ":00";
+      } else {
+        let second = props.timer % 60;
+        if (second < 10) {
+          currentTimer = `0${currentMinute}:0${second}`;
+        } else {
+          currentTimer = `0${currentMinute}:${second}`;
+        }
+      }
+    }
+    return currentTimer;
+  };
   return (
     <div>
       <div className="music-info-wrapper">
@@ -27,9 +52,11 @@ export default function MusicPlayer(props) {
           <p>SP Balasubraniam,Janaki</p>
         </div>
       </div>
-      <div className="loader"></div>
+      <div className="loader">
+        <div className="loader-progress"></div>
+      </div>
       <div className="music-duration">
-        <span className="start">00:00</span>
+        <span className="start">{convertTimertoMinSec()}</span>
         <span className="end">{totalDuration}</span>
       </div>
       <div className="music-controls">
