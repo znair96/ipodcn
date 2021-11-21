@@ -7,6 +7,7 @@ export default class ButtonNav extends Component {
   constructor(props) {
     super(props);
     this.audio = new Audio(song);
+    this.width = 0;
     this.state = {
       menuItem: "",
       timer: 0,
@@ -60,36 +61,25 @@ export default class ButtonNav extends Component {
   changeToPlayPause = () => {
     const play = document.getElementsByClassName("play")[0];
     const pause = document.getElementsByClassName("pause")[0];
-    // let startMinutes = 0;
-    // let startSeconds = 0;
-    // const minutes = parseInt(totalDuration / 60);
-    // const seconds = totalDuration % 60;
-    // let endduration = "";
-    // if (seconds < 10) {
-    //   endduration = minutes + ":0" + seconds;
-    // } else {
-    //   endduration = minutes + ":" + seconds;
-    // }
-    // console.log(endduration);
-    // const totalDuration = parseInt(this.state.audio.duration);
-    // console.log(totalDuration);
-    let width = 0;
     let timerCount = setInterval(() => {
       if (this.audio.paused) {
+        document.getElementsByClassName("loader-progress")[0].style.width =
+          this.width + "px";
         clearInterval(timerCount);
       } else {
         if (this.state.timer === parseInt(this.audio.duration)) {
           this.setState({
             timer: 0,
           });
+          this.width = 0;
           clearInterval(timerCount);
         } else {
           this.setState({
             timer: this.state.timer + 1,
           });
-          width = width + 0.5;
+          this.width = this.width + 265 / this.audio.duration;
           document.getElementsByClassName("loader-progress")[0].style.width =
-            width + "%";
+            this.width + "px";
         }
       }
     }, 1000);
@@ -103,7 +93,6 @@ export default class ButtonNav extends Component {
       play.classList.add("pause");
     } else {
       this.audio.pause();
-
       pause.getElementsByTagName("i")[0].classList.remove("fal");
       pause.getElementsByTagName("i")[0].classList.remove("fa-pause");
       pause.getElementsByTagName("i")[0].classList.add("fal");
