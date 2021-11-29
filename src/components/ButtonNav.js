@@ -1,8 +1,16 @@
 import React, { Component } from "react";
-import Screen from "./Screen";
+// import Screen from "./Screen";
+import "../styles/screen.css";
+import Menu from "./Menu";
+import CoverFlow from "./CoverFlow";
+// import MusicPlayer from "./MusicPlayer";
+import Games from "./Games";
+import Settings from "./Settings";
+import Music from "./Music";
 import "../styles/buttonnav.css";
-import ZingTouch from "zingtouch";
+// import ZingTouch from "zingtouch";
 import song from "../audio/Malare-S.P.-Balasubrahmanyam-S.-Janaki.m4a";
+import IpodNavButton from "./IpodNavButton";
 export default class ButtonNav extends Component {
   constructor(props) {
     super(props);
@@ -14,36 +22,6 @@ export default class ButtonNav extends Component {
     };
     // console.log(this.audio.duration);
   }
-
-  componentDidMount() {
-    let element = document.getElementsByClassName("nav-options")[0];
-    let activeRegion = new ZingTouch.Region(element);
-    //Customised Pan event
-    let customPan = new ZingTouch.Pan({
-      threshold: 20,
-      numInputs: 1,
-    });
-    //Binding the event in the region
-
-    activeRegion.bind(element, customPan, (event) => {
-      if (document.getElementById("cover-flow").className === "highlight") {
-        document.getElementById("cover-flow").classList.remove("highlight");
-        document.getElementById("music").classList.add("highlight");
-      } else if (document.getElementById("music").className === "highlight") {
-        document.getElementById("music").classList.remove("highlight");
-        document.getElementById("games").classList.add("highlight");
-      } else if (document.getElementById("games").className === "highlight") {
-        document.getElementById("games").classList.remove("highlight");
-        document.getElementById("settings").classList.add("highlight");
-      } else if (
-        document.getElementById("settings").className === "highlight"
-      ) {
-        document.getElementById("settings").classList.remove("highlight");
-        document.getElementById("cover-flow").classList.add("highlight");
-      }
-    });
-  }
-  //Inner div selected
   optionSelected = () => {
     let menuOption =
       document.getElementsByClassName("highlight")[0].textContent;
@@ -102,44 +80,44 @@ export default class ButtonNav extends Component {
     }
   };
   render() {
+    let menu = this.state.menuItem;
+    menu = menu.trim();
+    let currentMenu;
+    let jsxVal;
+    let classValue = "screen";
+    if (menu !== "") {
+      classValue = "white-background";
+    }
+    if (menu !== "") {
+      classValue = "white-background";
+    }
+    if (menu === "Cover Flow") {
+      jsxVal = <CoverFlow />;
+      currentMenu = "CoverFlow";
+    } else if (menu === "Music") {
+      classValue = "screen";
+      currentMenu = "Music";
+      jsxVal = <Music currentMenu={currentMenu} />;
+    } else if (menu === "Games") {
+      jsxVal = <Games />;
+      currentMenu = "Games";
+    } else if (menu === "Settings") {
+      jsxVal = <Settings />;
+      currentMenu = "Settings";
+    } else {
+      jsxVal = <Menu />;
+      currentMenu = "Menu";
+    }
     return (
       <>
-        <Screen
-          menuOptionSelected={this.state.menuItem}
-          fullLength={parseInt(this.audio.duration)}
-          timer={this.state.timer}
+        <div className={classValue}>{jsxVal}</div>
+
+        <IpodNavButton
+          menuSelect={this.menuSelect}
+          changeToPlayPause={this.changeToPlayPause}
+          optionSelected={this.optionSelected}
+          currentMenu={currentMenu}
         />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 18,
-          }}
-        >
-          <div className="outer-div">
-            <div className="nav-options">
-              <div id="fbm">
-                <p className="menu" onClick={this.menuSelect}>
-                  MENU
-                </p>
-                <p className="forward">
-                  <i className="fas fa-fast-backward"></i>
-                </p>
-                <p className="backward">
-                  <i className="fas fa-fast-forward"></i>
-                </p>
-              </div>
-              <p className="play-pause" onClickCapture={this.changeToPlayPause}>
-                <div style={{ display: "flex" }}>
-                  <i className="fas fa-play"></i>
-                  <i className="fas fa-pause" style={{ paddingLeft: 4 }}></i>
-                </div>
-              </p>
-              <div id="inner-div" onClick={this.optionSelected}></div>
-            </div>
-          </div>
-        </div>
       </>
     );
   }
