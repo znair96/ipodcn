@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/musicplayer.css";
 
 export default function MusicPlayer(props) {
+  useEffect(() => {
+    document.getElementsByClassName("loader-progress")[0].style.width =
+      props.width + "px";
+  });
   const seconds = props.fullLength % 60;
   const minutes = parseInt(props.fullLength / 60);
   let totalDuration = "";
@@ -35,6 +39,7 @@ export default function MusicPlayer(props) {
     }
     return currentTimer;
   };
+
   return (
     <div>
       <div className="music-info-wrapper">

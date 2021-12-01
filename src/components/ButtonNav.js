@@ -14,10 +14,10 @@ export default class ButtonNav extends Component {
   constructor(props) {
     super(props);
     this.audio = new Audio(song);
-    this.width = 0;
     this.state = {
       menuItem: "",
       timer: 0,
+      width: 0,
     };
   }
   optionSelected = () => {
@@ -43,25 +43,27 @@ export default class ButtonNav extends Component {
   changeToPlayPause = () => {
     const play = document.getElementsByClassName("play")[0];
     const pause = document.getElementsByClassName("pause")[0];
+    document.getElementsByClassName("loader-progress")[0].style.width =
+      this.state.width + "px";
     let timerCount = setInterval(() => {
       if (this.audio.paused) {
         document.getElementsByClassName("loader-progress")[0].style.width =
-          this.width + "px";
+          this.state.width + "px";
         clearInterval(timerCount);
       } else {
         if (this.state.timer === parseInt(this.audio.duration)) {
           this.setState({
             timer: 0,
+            width: 0,
           });
-          this.width = 0;
           clearInterval(timerCount);
         } else {
           this.setState({
             timer: this.state.timer + 1,
+            width: this.state.width + 265 / this.audio.duration,
           });
-          this.width = this.width + 265 / this.audio.duration;
           document.getElementsByClassName("loader-progress")[0].style.width =
-            this.width + "px";
+            this.state.width + "px";
         }
       }
     }, 1000);
@@ -113,8 +115,10 @@ export default class ButtonNav extends Component {
         <MusicPlayer
           timer={this.state.timer}
           fullLength={parseInt(this.audio.duration)}
+          width={this.state.width}
         />
       );
+
       currentMenu = "Music Player";
     } else {
       jsxVal = <Menu />;
