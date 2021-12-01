@@ -32,15 +32,11 @@ export default class IpodNavButton extends Component {
           .classList.remove("highlight");
         document.getElementById(menu[0]).classList.add("highlight");
       }
-      console.log(id, fetchIndexOfMenu, this.props.currentMenu);
     });
   }
   render() {
     //  const event = (this.props.currentMenu!=="Menu") ? "" : `onClick=${this.props.menuSelect}`;
-    if (
-      this.props.currentMenu !== "Menu" ||
-      this.props.currentMenu === "Music"
-    ) {
+    if (this.props.currentMenu !== "Menu") {
       return (
         <div
           style={{
@@ -63,13 +59,16 @@ export default class IpodNavButton extends Component {
                   <i className="fas fa-fast-forward"></i>
                 </p>
               </div>
-              <p className="play-pause">
+              <p
+                className="play-pause"
+                onClickCapture={this.props.changeToPlayPause}
+              >
                 <div style={{ display: "flex" }}>
                   <i className="fas fa-play"></i>
                   <i className="fas fa-pause" style={{ paddingLeft: 4 }}></i>
                 </div>
               </p>
-              <div id="inner-div"></div>
+              <div id="inner-div" onClick={this.props.optionSelected}></div>
             </div>
           </div>
         </div>

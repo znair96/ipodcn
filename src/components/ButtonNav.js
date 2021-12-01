@@ -3,12 +3,11 @@ import React, { Component } from "react";
 import "../styles/screen.css";
 import Menu from "./Menu";
 import CoverFlow from "./CoverFlow";
-// import MusicPlayer from "./MusicPlayer";
+import MusicPlayer from "./MusicPlayer";
 import Games from "./Games";
 import Settings from "./Settings";
 import Music from "./Music";
 import "../styles/buttonnav.css";
-// import ZingTouch from "zingtouch";
 import song from "../audio/Malare-S.P.-Balasubrahmanyam-S.-Janaki.m4a";
 import IpodNavButton from "./IpodNavButton";
 export default class ButtonNav extends Component {
@@ -20,7 +19,6 @@ export default class ButtonNav extends Component {
       menuItem: "",
       timer: 0,
     };
-    // console.log(this.audio.duration);
   }
   optionSelected = () => {
     let menuOption =
@@ -31,9 +29,15 @@ export default class ButtonNav extends Component {
   };
   //Event triggered when menu is clicked
   menuSelect = () => {
-    this.setState({
-      menuItem: "",
-    });
+    if (this.state.menuItem.trim() === "All Songs") {
+      this.setState({
+        menuItem: "Music",
+      });
+    } else {
+      this.setState({
+        menuItem: "",
+      });
+    }
   };
 
   changeToPlayPause = () => {
@@ -97,13 +101,21 @@ export default class ButtonNav extends Component {
     } else if (menu === "Music") {
       classValue = "screen";
       currentMenu = "Music";
-      jsxVal = <Music currentMenu={currentMenu} />;
+      jsxVal = <Music />;
     } else if (menu === "Games") {
       jsxVal = <Games />;
       currentMenu = "Games";
     } else if (menu === "Settings") {
       jsxVal = <Settings />;
       currentMenu = "Settings";
+    } else if (menu === "All Songs") {
+      jsxVal = (
+        <MusicPlayer
+          timer={this.state.timer}
+          fullLength={parseInt(this.audio.duration)}
+        />
+      );
+      currentMenu = "Music Player";
     } else {
       jsxVal = <Menu />;
       currentMenu = "Menu";
@@ -111,7 +123,6 @@ export default class ButtonNav extends Component {
     return (
       <>
         <div className={classValue}>{jsxVal}</div>
-
         <IpodNavButton
           menuSelect={this.menuSelect}
           changeToPlayPause={this.changeToPlayPause}

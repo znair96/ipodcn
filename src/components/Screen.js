@@ -18,20 +18,14 @@ export default class Screen extends Component {
     if (menu === "Cover Flow") {
       jsxVal = <CoverFlow />;
     } else if (menu === "Music") {
-      // jsxVal = (
-      //   <MusicPlayer
-      //     fullLength={this.props.fullLength}
-      //     timer={this.props.timer}
-      //   />
-      // );
-      jsxVal = <Music eventNavigation={this.props.eventNavigation} />;
+      jsxVal = <Music />;
       // classValue = "screen";
     } else if (menu === "Games") {
       jsxVal = <Games />;
     } else if (menu === "Settings") {
       jsxVal = <Settings />;
     } else {
-      jsxVal = <Menu eventNavigation={this.props.eventNavigation} />;
+      jsxVal = <Menu />;
     }
     return <div className={classValue}>{jsxVal}</div>;
   }

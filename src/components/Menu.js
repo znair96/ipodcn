@@ -1,14 +1,6 @@
 import React, { Component } from "react";
 // import ZingTouch from "zingtouch";
 export default class Menu extends Component {
-  //Inner div selected
-  optionSelected = () => {
-    let menuOption =
-      document.getElementsByClassName("highlight")[0].textContent;
-    this.setState({
-      menuItem: menuOption,
-    });
-  };
   render() {
     return (
       <div className="nav-links">
