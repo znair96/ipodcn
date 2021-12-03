@@ -1,114 +1,37 @@
 import React, { Component } from "react";
-import ZingTouch from "zingtouch";
+import IpodPageController from "./IpodPageController";
+import MenuTypeController from "./MenuTypeController";
+import MusicPlayerController from "./MusicPlayerController";
 export default class IpodNavButton extends Component {
-  componentDidMount() {
-    let element = document.querySelector(".nav-options");
-    let activeRegion = new ZingTouch.Region(element);
-    //Customised Pan event
-    let customPan = new ZingTouch.Pan({
-      threshold: 25,
-      numInputs: 1,
-    });
-    activeRegion.bind(element, customPan, (event) => {
-      let menu;
-      if (this.props.currentMenu === "Music") {
-        menu = ["all-songs", "artists", "albums"];
-      } else {
-        menu = ["cover-flow", "music", "games", "settings"];
-      }
-      const id = document.querySelector(".highlight").id;
-      const fetchIndexOfMenu = menu.indexOf(id);
-
-      if (fetchIndexOfMenu !== menu.length - 1) {
-        document
-          .getElementById(menu[fetchIndexOfMenu])
-          .classList.remove("highlight");
-        document
-          .getElementById(menu[fetchIndexOfMenu + 1])
-          .classList.add("highlight");
-      } else {
-        document
-          .getElementById(menu[fetchIndexOfMenu])
-          .classList.remove("highlight");
-        document.getElementById(menu[0]).classList.add("highlight");
-      }
-    });
-  }
   render() {
-    //  const event = (this.props.currentMenu!=="Menu") ? "" : `onClick=${this.props.menuSelect}`;
-    if (this.props.currentMenu !== "Menu") {
+    // debugger;
+    if (
+      this.props.currentMenu === "Menu" ||
+      this.props.currentMenu === "" ||
+      this.props.currentMenu === "Music"
+    ) {
       return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 18,
-          }}
-        >
-          <div className="outer-div">
-            <div className="nav-options">
-              <div id="fbm">
-                <p className="menu" onClick={this.props.menuSelect}>
-                  MENU
-                </p>
-                <p className="forward">
-                  <i className="fas fa-fast-backward"></i>
-                </p>
-                <p className="backward">
-                  <i className="fas fa-fast-forward"></i>
-                </p>
-              </div>
-              <p
-                className="play-pause"
-                onClickCapture={this.props.changeToPlayPause}
-              >
-                <div style={{ display: "flex" }}>
-                  <i className="fas fa-play"></i>
-                  <i className="fas fa-pause" style={{ paddingLeft: 4 }}></i>
-                </div>
-              </p>
-              <div id="inner-div" onClick={this.props.optionSelected}></div>
-            </div>
-          </div>
-        </div>
+        <MenuTypeController
+          menuSelect={this.props.menuSelect}
+          changeToPlayPause={this.props.changeToPlayPause}
+          optionSelected={this.props.optionSelected}
+          currentMenu={this.props.currentMenu}
+        />
+      );
+    } else if (this.props.currentMenu.trim() === "Music Player") {
+      return (
+        <MusicPlayerController
+          menuSelect={this.props.menuSelect}
+          changeToPlayPause={this.props.changeToPlayPause}
+          currentMenu={this.props.currentMenu}
+        />
       );
     } else {
       return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 18,
-          }}
-        >
-          <div className="outer-div">
-            <div className="nav-options">
-              <div id="fbm">
-                <p className="menu" onClick={this.props.menuSelect}>
-                  MENU
-                </p>
-                <p className="forward">
-                  <i className="fas fa-fast-backward"></i>
-                </p>
-                <p className="backward">
-                  <i className="fas fa-fast-forward"></i>
-                </p>
-              </div>
-              <p
-                className="play-pause"
-                onClickCapture={this.props.changeToPlayPause}
-              >
-                <div style={{ display: "flex" }}>
-                  <i className="fas fa-play"></i>
-                  <i className="fas fa-pause" style={{ paddingLeft: 4 }}></i>
-                </div>
-              </p>
-              <div id="inner-div" onClick={this.props.optionSelected}></div>
-            </div>
-          </div>
-        </div>
+        <IpodPageController
+          menuSelect={this.props.menuSelect}
+          currentMenu={this.props.currentMenu}
+        />
       );
     }
   }

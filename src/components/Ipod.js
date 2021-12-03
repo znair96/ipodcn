@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import Screen from "./Screen";
 import "../styles/screen.css";
 import Menu from "./Menu";
 import CoverFlow from "./CoverFlow";
@@ -10,6 +9,8 @@ import Music from "./Music";
 import "../styles/buttonnav.css";
 import song from "../audio/Malare-S.P.-Balasubrahmanyam-S.-Janaki.m4a";
 import IpodNavButton from "./IpodNavButton";
+import Artists from "./Artists";
+import Albums from "./Albums";
 export default class ButtonNav extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,11 @@ export default class ButtonNav extends Component {
   };
   //Event triggered when menu is clicked
   menuSelect = () => {
-    if (this.state.menuItem.trim() === "All Songs") {
+    if (
+      this.state.menuItem.trim() === "All Songs" ||
+      this.state.menuItem.trim() === "Artists" ||
+      this.state.menuItem.trim() === "Albums"
+    ) {
       this.setState({
         menuItem: "Music",
       });
@@ -46,10 +51,12 @@ export default class ButtonNav extends Component {
     document.getElementsByClassName("loader-progress")[0].style.width =
       this.state.width + "px";
     let timerCount = setInterval(() => {
+      let loader = document.getElementsByClassName("loader-progress")[0];
       if (this.audio.paused) {
-        document.getElementsByClassName("loader-progress")[0].style.width =
-          this.state.width + "px";
-        clearInterval(timerCount);
+        if (loader) {
+          loader.style.width = this.state.width + "px";
+          clearInterval(timerCount);
+        }
       } else {
         if (this.state.timer === parseInt(this.audio.duration)) {
           this.setState({
@@ -58,12 +65,15 @@ export default class ButtonNav extends Component {
           });
           clearInterval(timerCount);
         } else {
-          this.setState({
-            timer: this.state.timer + 1,
-            width: this.state.width + 265 / this.audio.duration,
-          });
-          document.getElementsByClassName("loader-progress")[0].style.width =
-            this.state.width + "px";
+          if (loader) {
+            this.setState({
+              timer: this.state.timer + 1,
+              width: this.state.width + 265 / this.audio.duration,
+            });
+            loader.style.width = this.state.width + "px";
+          } else {
+            this.audio.pause();
+          }
         }
       }
     }, 1000);
@@ -118,8 +128,13 @@ export default class ButtonNav extends Component {
           width={this.state.width}
         />
       );
-
       currentMenu = "Music Player";
+    } else if (menu === "Artists") {
+      jsxVal = <Artists />;
+      currentMenu = "Artists";
+    } else if (menu === "Albums") {
+      jsxVal = <Albums />;
+      currentMenu = "Albums";
     } else {
       jsxVal = <Menu />;
       currentMenu = "Menu";
