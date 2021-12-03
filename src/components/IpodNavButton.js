@@ -4,7 +4,6 @@ import MenuTypeController from "./MenuTypeController";
 import MusicPlayerController from "./MusicPlayerController";
 export default class IpodNavButton extends Component {
   render() {
-    // debugger;
     if (
       this.props.currentMenu === "Menu" ||
       this.props.currentMenu === "" ||

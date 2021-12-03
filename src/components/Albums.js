@@ -1,5 +1,5 @@
 import React from "react";
-
+/* Albums component which represent albums page */
 export default function Albums() {
   return (
     <div className="games-section">

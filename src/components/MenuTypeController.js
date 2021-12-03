@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ZingTouch from "zingtouch";
+//Component for Menu controller and the event bounded for it
 export default class MenuTypeController extends Component {
   componentDidMount() {
     let element = document.querySelector(".nav-options");

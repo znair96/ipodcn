@@ -1,5 +1,5 @@
 import React from "react";
-
+//Component for Ipod page controller and the event bounded for it
 export default function IpodPageController(props) {
   return (
     <div

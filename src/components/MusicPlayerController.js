@@ -1,5 +1,5 @@
 import React from "react";
-
+//Component for music controller and the event bounded for it
 export default function MusicPlayerController(props) {
   return (
     <div

@@ -1,5 +1,5 @@
 import React from "react";
-
+/* Artists component represents artists page */
 export default function Artists() {
   return (
     <div className="games-section">

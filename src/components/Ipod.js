@@ -21,6 +21,7 @@ export default class ButtonNav extends Component {
       width: 0,
     };
   }
+  //Event for selecting the option from menu
   optionSelected = () => {
     let menuOption =
       document.getElementsByClassName("highlight")[0].textContent;
@@ -44,7 +45,7 @@ export default class ButtonNav extends Component {
       });
     }
   };
-
+  //Event for pause and play the music and adjust the loader
   changeToPlayPause = () => {
     const play = document.getElementsByClassName("play")[0];
     const pause = document.getElementsByClassName("pause")[0];
@@ -98,6 +99,7 @@ export default class ButtonNav extends Component {
     }
   };
   render() {
+    //Checks for the page to be displayed based on option selected from menu
     let menu = this.state.menuItem;
     menu = menu.trim();
     let currentMenu;
@@ -141,6 +143,7 @@ export default class ButtonNav extends Component {
       jsxVal = <Menu />;
       currentMenu = "Menu";
     }
+    /*renders the option selected page and button and passing the events as props to be used by other components*/
     return (
       <>
         <div className={classValue}>{jsxVal}</div>
