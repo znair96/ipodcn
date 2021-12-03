@@ -79,18 +79,20 @@ export default class ButtonNav extends Component {
     }, 1000);
     if (play) {
       this.audio.play();
-      play.getElementsByTagName("i")[0].classList.remove("fal");
-      play.getElementsByTagName("i")[0].classList.remove("fa-play");
-      play.getElementsByTagName("i")[0].classList.add("fal");
-      play.getElementsByTagName("i")[0].classList.add("fa-pause");
+      let playElement = play.getElementsByTagName("i")[0].classList;
+      playElement.remove("fal");
+      playElement.remove("fa-play");
+      playElement.add("fal");
+      playElement.add("fa-pause");
       play.classList.remove("play");
       play.classList.add("pause");
     } else {
       this.audio.pause();
-      pause.getElementsByTagName("i")[0].classList.remove("fal");
-      pause.getElementsByTagName("i")[0].classList.remove("fa-pause");
-      pause.getElementsByTagName("i")[0].classList.add("fal");
-      pause.getElementsByTagName("i")[0].classList.add("fa-play");
+      let pauseElement = pause.getElementsByTagName("i")[0].classList;
+      pauseElement.remove("fal");
+      pauseElement.remove("fa-pause");
+      pauseElement.add("fal");
+      pauseElement.add("fa-play");
       pause.classList.remove("pause");
       pause.classList.add("play");
     }
